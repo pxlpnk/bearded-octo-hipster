@@ -1,0 +1,12 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    fire-and-forget (0.1.0)
+      json
+    json (1.7.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  fire-and-forget
