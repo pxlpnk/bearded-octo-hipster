@@ -2,9 +2,9 @@ require 'bundler/setup'
 require 'fire/forget'
 require 'uri'
 
-url = "http://an-ti.eu/"
-task :default => 'stressi:test'
+url =  ENV['url']
 
+task :default => 'stressi:test'
 namespace :stressi do
   desc "Run test"
   task :test do
