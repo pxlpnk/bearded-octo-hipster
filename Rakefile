@@ -5,7 +5,7 @@ require 'logger'
 require 'uri'
 
 @log = Logger.new(STDOUT)
-@log.level = Logger::DEBUG
+@log.level = Logger::INFO
 
 
 url =  ENV['url']
@@ -31,17 +31,21 @@ task :default => 'stressi:test'
 namespace :stressi do
   desc "Run test"
   task :test do
+    @log.info "Starting execution, #{requests} requests on #{url}"
+    start_t = Time.now
     fire_n_times(requests, url)
-    @log.debug "All #{requests} requests sent. No s$#t was given."
+    @log.info "All #{requests} requests sent. No s$#t was given. (#{Time.now - start_t}s)"
   end
 
   desc "parallel stressi"
   task :parallel do
+    @log.info "Starting parallel execution, #{requests} requests with #{threads_cnt} threads on #{url}"
+    start_t = Time.now
     threads = []
     (0..threads_cnt).each do |t|
       threads << Thread.new {fire_n_times(requests, url)}
     end
     threads.map{|t| t.join }
-    @log.debug "All #{requests} requests multiplied by #{threads_cnt} threads sent. No s$#t was given."
+    @log.info "All #{requests} requests multiplied by #{threads_cnt} threads sent. No s$#t was given. (#{Time.now - start_t}s)"
   end
 end
